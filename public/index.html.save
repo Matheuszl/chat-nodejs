@@ -21,7 +21,7 @@
     </form>
     
     <script type="text/javascript">
-      var socket = io('http://15.228.28.56:4200');
+      var socket = io('');
 
       function renderMessage(message){
         $('.messages').append('<div class="message"><strong>'+ message.autor +'</strong>:'+ message.message +'</div>');
@@ -58,3 +58,4 @@
     </script>
 </body>
 </html>
+http://15.228.
