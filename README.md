@@ -1,6 +1,6 @@
 ## 💻 Sobre o projeto
 
-Desenvolvimento de um chat real time usando Socket.Io e integralização com AWS(Amazon Web Services), esta aplicação foi feita para ser operante em qualquer navegador web disponivel, sem custo de scesso, e baixo custo de hardwere do usuario. 
+Desenvolvimento de um chat real time usando Socket.Io e integralização com AWS(Amazon Web Services), esta aplicação foi feita para ser operante em qualquer navegador web disponivel, sem custo de acesso, e baixo custo de hardwere do usuario. 
 
 ---
 
