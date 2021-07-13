@@ -13,7 +13,6 @@
 </head>
 <body>
     <form id="chat">
-<h6>Chat.IO<h6>
       <input type="text"  name="username" placeholder="Nome de usuario"></input>
       <div class="messages"></div>
       <input type="text"  name="message" placeholder="Digite sua mensagem"></input>
@@ -54,6 +53,7 @@
           renderMessage(messageObject);
 
           socket.emit('sendMessage', messageObject);
+	
         }
       });
     </script>
