@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,53 +10,93 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
 
-  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-    <form id="chat">
-<h6>Chat.IO<h6>
-      <input type="text"  name="username" placeholder="Nome de usuario"></input>
-      <div class="messages"></div>
-      <input type="text"  name="message" placeholder="Digite sua mensagem"></input>
-      <button type="submit">Enviar</button>
-      
-    </form>
+  <form id="chat">
+    <div class="messages"></div>
+    <input class="user-name" type="text" name="username" placeholder="Nome de usuario"></input>
+    <input class="user-color" type="text" name="usercolor" placeholder="Cor do usuario"></input>
+    <input class="user-message" type="text" name="message" placeholder="Digite sua mensagem"></input>
+    <button class="send" type="submit">Enviar</button>
+    <!-- <button class="send" onclick="run()">Enviar</button> -->
+
+  </form>
+
+  <script type="text/javascript">
+    var socket = io('http://15.228.28.56:4200');
+    let messagefield = document.querySelector('.user-message')
+    let namefield = document.querySelector('.user-name')
+    let colorfield = document.querySelector('.user-color')
+    let messagesfield = document.querySelector(".messages")
+    let messages = document.getElementsByClassName("message")
     
-    <script type="text/javascript">
-      var socket = io('http://15.228.28.56:4200');
+    function renderMessage(message) {
+      $('.messages').append(`<div class="message"><strong style= "color: ${filterName(message.autor,"color")}">${filterName(message.autor,"name")}</strong>:${message.message} </div>`);
+    }    
 
-      function renderMessage(message){
-        $('.messages').append('<div class="message"><strong>'+ message.autor +'</strong>:'+ message.message +'</div>');
-      }
-
-      socket.on('previousMessage', function(messages) {
-        for(message of messages){
-          renderMessage(message);
-        }
-      });
-
-
-      socket.on('receivedMessage', function(message) {
+    socket.on('previousMessage', function (messages) {
+      for (message of messages) {
         renderMessage(message);
-      });
+        scrollUp();
+      }
+    });
 
-      $('#chat').submit(function(event) {
-        event.preventDefault();
 
-        var autor = $('input[name=username]').val();
-        var message = $('input[name=message]').val();
+    socket.on('receivedMessage', function (message) {
+      renderMessage(message);
+      scrollUp();
+    });
 
-        if(autor.length && message.length){
-          var messageObject = {
-            autor: autor,
-            message: message,
-          };
+    
 
-          renderMessage(messageObject);
+    $('#chat').submit(function (event) {
+      event.preventDefault();
+      let fullName = namefield.value +"#"+ colorfield.value
+      if (namefield.value.length && messagefield.value.length) {
+        var messageObject = {
+          autor: fullName,
+          message: messagefield.value,
+        };
 
-          socket.emit('sendMessage', messageObject);
+        renderMessage(messageObject);
+
+        socket.emit('sendMessage', messageObject);
+        messagefield.value = "";
+        scrollUp();
+      }
+    });
+
+    function scrollUp() {
+      messagesfield.scroll(0, (messages.length * 1000))
+    }
+
+  function filterName(fullName,mode){
+      if (mode == "full") {
+        return fullName
+      } else if (mode == "name") {
+        for (let index = 0; index < fullName.length; index++) {
+          if(fullName[index] == "#"){
+            return fullName.slice(0, index);
+          }
+          
         }
-      });
-    </script>
+      } else if (mode == "color") {
+        for (let index = 0; index < fullName.length; index++) {
+          if(fullName[index] == "#"){
+            return fullName.slice(index+1, fullName.length);
+          }
+          
+        }
+      }
+    }
+
+
+
+
+
+
+  </script>
 </body>
-</html>
+
