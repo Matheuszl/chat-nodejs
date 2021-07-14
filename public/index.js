@@ -91,7 +91,7 @@ function settings() {
 function verifyClass(username) {
     for (let index = 0; index < messages.length; index++) {
         if (messages[index].className.includes(username)) {
-            $(`.${username}`).addClass("user-send-message")
+            $("."+username).addClass("user-send-message")
         }
     }
 
