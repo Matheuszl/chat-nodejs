@@ -7,10 +7,10 @@ Desenvolvimento de um chat real time usando Socket.Io e integralização com AWS
 
 ### ⚙️ Funcionalidades
 
-- [x] Envio de mensagens instantaneas 
-- [ ] Envio de imagens instantaneas 
-- [ ] Cadastro simples de usuario
-- [ ] Salas particulares
+- [:heavy_check_mark:] Envio de mensagens instantaneas 
+- [:warning:] Envio de imagens instantaneas 
+- [:warning:] Cadastro simples de usuario
+- [:warning:] Salas particulares
 
 ---
 
