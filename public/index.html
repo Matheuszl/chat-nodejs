@@ -6,97 +6,45 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat web</title>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
-
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
   <form id="chat">
+    <button  class="toggle-options" onclick="settings()"><i class="fas fa-cog"></i></button >
+    <button class="toggle-options-close hide" onclick="settings()"><i class="fas fa-times"></i></button >
+    <div class="options hide">
+      <input class="user-name" type="text" name="username" placeholder="Nome de usuario"></input>
+      
+      <select name="user-color" class="user-color">
+        <option value="default">COR</option>
+        <option value="red">Vermelho</option>
+        <option value="yellow">Amarelo</option>
+        <option value="green">Verde</option>
+        <option value="magenta">Rosa</option>
+        <option value="black">Vermelho</option>
+        <option value="orange">Laranja</option>
+        <option value="random">Aleatorio</option>
+      </select>
+      <!-- <input class="user-color" type="text" name="usercolor" placeholder="Cor do usuario"></input> -->
+    </div>
+
     <div class="messages"></div>
-    <input class="user-name" type="text" name="username" placeholder="Nome de usuario"></input>
-    <input class="user-color" type="text" name="usercolor" placeholder="Cor do usuario"></input>
-    <input class="user-message" type="text" name="message" placeholder="Digite sua mensagem"></input>
-    <button class="send" type="submit">Enviar</button>
+  
+
+    <!-- <input class="user-message" type="text" name="message" placeholder="Digite sua mensagem"></input> -->
+    <div class="message-row">
+      <textarea class="user-message" placeholder="Digite sua mensagem" name="message" cols="30" rows="2"></textarea>
+      <button class="send" type="submit"><i class="far fa-paper-plane"></i></button>
+    </div>
     <!-- <button class="send" onclick="run()">Enviar</button> -->
 
   </form>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+  <script src="index.js"></script>
 
-  <script type="text/javascript">
-    var socket = io('http://15.228.28.56:4200');
-    let messagefield = document.querySelector('.user-message')
-    let namefield = document.querySelector('.user-name')
-    let colorfield = document.querySelector('.user-color')
-    let messagesfield = document.querySelector(".messages")
-    let messages = document.getElementsByClassName("message")
-    
-    function renderMessage(message) {
-      $('.messages').append(`<div class="message"><strong style= "color: ${filterName(message.autor,"color")}">${filterName(message.autor,"name")}</strong>:${message.message} </div>`);
-    }    
-
-    socket.on('previousMessage', function (messages) {
-      for (message of messages) {
-        renderMessage(message);
-        scrollUp();
-      }
-    });
-
-
-    socket.on('receivedMessage', function (message) {
-      renderMessage(message);
-      scrollUp();
-    });
-
-    
-
-    $('#chat').submit(function (event) {
-      event.preventDefault();
-      let fullName = namefield.value +"#"+ colorfield.value
-      if (namefield.value.length && messagefield.value.length) {
-        var messageObject = {
-          autor: fullName,
-          message: messagefield.value,
-        };
-
-        renderMessage(messageObject);
-
-        socket.emit('sendMessage', messageObject);
-        messagefield.value = "";
-        scrollUp();
-      }
-    });
-
-    function scrollUp() {
-      messagesfield.scroll(0, (messages.length * 1000))
-    }
-
-  function filterName(fullName,mode){
-      if (mode == "full") {
-        return fullName
-      } else if (mode == "name") {
-        for (let index = 0; index < fullName.length; index++) {
-          if(fullName[index] == "#"){
-            return fullName.slice(0, index);
-          }
-          
-        }
-      } else if (mode == "color") {
-        for (let index = 0; index < fullName.length; index++) {
-          if(fullName[index] == "#"){
-            return fullName.slice(index+1, fullName.length);
-          }
-          
-        }
-      }
-    }
-
-
-
-
-
-
-  </script>
 </body>
-

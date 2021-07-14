@@ -1,118 +1,201 @@
 html, body {
   height: 100%;
   background-color: rgb(236, 77, 77);
+  overflow: hidden;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: transparent; /* or add it to the track */
 }
 
-#chat {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 2vw;
+/* Add a thumb */
+*::-webkit-scrollbar-thumb {
+    background: rgb(226, 99, 99);
+    border-radius: 20px;
+    width: 10px;
 }
 
-input {
-  width: 60vw;
-  border: 1px solid #ddd;
-  height: 5vw;
-  padding: 0 2vw;
-  font-size: 1.5vw;
-}
-
-button {
-  width: 60vw;
-  font-size: 1.5vw;
-  background: rgb(226, 99, 99);
-  text-align: center;
-  line-height: 5vw;
-  font-weight: bold;
-  color: #FFF;
-  margin-top: 1vw;
-  border: none;
-  letter-spacing: 2px;
-}
-
-.messages {
-  width: 60vw;
-  height: 40vw;
-  margin: 2vw 0;
-  border: 1px solid #ddd;
-  padding: 2vw;
-}
-
-.messages {
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  height: 45%;
-  width: 90%;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.835);
-  overflow-y: auto;
-  font-size: 1.1rem;  
-}
-
-.send {
-  position: absolute;
-  top: 90%;
-  height: 40px;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  border-radius: 5px;
-  width: 90%;
-  
-}
-
-.user-name, .user-message,.user-color {
-  position: absolute;
-  top: 72%;
-  font-size: 1.1rem;
-  height: 40px;
-  width: 90%;  
-  overflow-y: auto;
-}
-
-.user-message {
-  height: 90px;
-}
-
-.user-color {
-  top: 63%;
-}
-
-.user-name {
-  top: 54%;
-}
-
-input {
-  padding-left: 0px;
-  padding-bottom: 0px;
-  background-color: transparent;
-  color: white;
-  border-left: transparent;
-  border-right: transparent;
-  border-top: transparent;
-  border-bottom: 1px dotted white;
-}
 
 #chat {  
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  height: 600px;
+  height: 650px;
   width: 90vw;
+  max-width: 900px;
   background-color: rgb(78, 78, 78);
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0px 0px 30px 2px rgba(80, 80, 80, 0.548);
+  padding-bottom: 20px;
+  overflow: hidden;
 }
+
+.toggle-options, .toggle-options-close {
+  position: absolute;
+  top: 10%;
+  left: 85%;
+  transform: translate(0%,-50%);
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: none;
+  color: rgba(255, 255, 255, 0.678);
+  background-color: rgba(27, 27, 27, 0.808);
+  font-size: 1.2rem;
+  z-index: 99999999;
+}
+
+.toggle-options i, .toggle-options-close i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.toggle-options-close {
+  color: rgba(82, 82, 82, 0.924);
+  background-color: rgba(218, 218, 218, 0.746);
+}
+
+.options {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 99;
+  height: 150px;
+  width: 300px;
+  background-color: rgb(75, 75, 75);
+  border-radius: 15px;
+}
+
+.messages {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%,0%);
+  height: 85%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.678);
+  overflow-y: auto;
+  font-size: 1.1rem;  
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.user-name, .user-message,.user-color {
+  position: absolute;
+  /* top: 72%; */
+  font-size: 1.1rem;
+  height: 40px;
+  width: 95%;  
+  overflow-y: auto;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.user-name {
+  top: 35px;
+}
+
+.user-color {
+  top: 90px;
+}
+
+input, textarea, select {
+  padding-left: 0px;
+  padding-bottom: 0px;
+  background-color: transparent;
+  color: rgb(158, 158, 158);
+  border-left: transparent;
+  border-right: transparent;
+  border-top: transparent;
+  border-bottom: 1px dotted white;
+  outline: none;
+  resize: none;
+}
+
+select option {
+  padding: 5px;
+  text-transform: uppercase;
+}
+
+
+
+
+.message-row {
+  height: 15%;
+  position: absolute;
+  width: 100%;
+  top: 85%;
+  background-color: rgba(47, 47, 47, 0.548);
+}
+
+.user-message {
+  top: 50%;
+  width: 80%;
+  height: auto;
+  left: 2.5%;
+  transform: translate(0%,-50%);
+  
+}
+
+.send {
+  border: none;
+  font-size: 1.5vw;
+  background: rgb(226, 99, 99);
+  color: rgba(0, 0, 0, 0.753);
+  position: absolute;
+  top: 50%;
+  /* left: 80%; */
+  margin-left: 95%;
+  transform: translate(-100%,-50%);
+  height: 40px;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  
+}
+
+.send i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.message {
+  margin: 20px;
+  display: block;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(80, 80, 80);
+  box-shadow: 0px 0px 5px 2px rgba(73, 73, 73, 0.609);
+
+}
+
+.user-send-message {
+  text-align: left;
+  background-color: rgb(226, 99, 99);
+  margin-left: 95%;
+  transform: translateX(-100%);
+}
+
+.autor-message {
+  color: whitesmoke;
+  margin-top: 5px;
+}
+
+.hide {
+  display: none;
+}
+
 
 
