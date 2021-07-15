@@ -4,27 +4,36 @@ let namefield = document.querySelector('.user-name')
 let colorfield = document.querySelector('.user-color')
 let messagesfield = document.querySelector(".messages")
 let messages = document.getElementsByClassName("message")
-
+let fullName
 
 $(document).ready(function () {
     scrollUp();
     if(verifyContact()){
         namefield.value = getContact("name")
         colorfield.value = getContact("color")
+    } else {
+        namefield.value = "aa"
+        colorfield.value = "aa"
     }
+    fullName = (namefield.value + "#" +colorfield.value)
 })
 
 function renderMessage(message) {
-    $('.messages').append(`<div class="message ${filterName(message.autor, "name")}"><strong class="autor-name" style= "color: ${filterName(message.autor, "color")}">${filterName(message.autor, "name")}</strong><div class="autor-message">${message.message}</div></div>`);
+    return new Promise((resolve,reject)=>{
+            $('.messages').append(`<div class="message ${filterName(message.autor, "name")}"><strong class="autor-name" style= "color: ${filterName(message.autor, "color")}">${filterName(message.autor, "name")}</strong><div class="autor-message">${message.message}</div><div class="date-message">${filterName(message.autor,"time")}</div></div>`);
+            resolve();
+    }).then(()=>{
+        verifyClass(filterName(fullName, "name"))
+    })
 }
 
 socket.on('previousMessage', function (messages) {
     for (message of messages) {
         renderMessage(message);
         scrollUp();
-        verifyClass(namefield.value);
+      
     }
-});
+},   verifyClass(namefield.value));
 
 
 socket.on('receivedMessage', function (message) {
@@ -36,7 +45,7 @@ socket.on('receivedMessage', function (message) {
     $('#chat').submit(function (event) {
         event.preventDefault();
         
-        let fullName = namefield.value + "#" + colorfield.value
+        fullName  = namefield.value + "#" + colorfield.value + "#" + getDateNow()
         
         if (namefield.value.length && messagefield.value.length) {
             
@@ -63,19 +72,11 @@ function filterName(fullName, mode) {
     if (mode == "full") {
         return fullName
     } else if (mode == "name") {
-        for (let index = 0; index < fullName.length; index++) {
-            if (fullName[index] == "#") {
-                return fullName.slice(0, index);
-            }
-
-        }
+        return fullName.split("#")[0]
     } else if (mode == "color") {
-        for (let index = 0; index < fullName.length; index++) {
-            if (fullName[index] == "#") {
-                return fullName.slice(index + 1, fullName.length);
-            }
-
-        }
+        return fullName.split("#")[1]
+    } else if (mode == "time"){
+        return fullName.split("#")[2]
     }
 }
 
@@ -101,16 +102,16 @@ function storeContact(username, color) {
     if (getContact("name") != username){
         window.localStorage.setItem('name', username);
         window.localStorage.setItem('color', color);
+    } else if (getContact("name") == username) {
+        window.localStorage.setItem('color', "");
+        window.localStorage.setItem('color', color);
     }
 }
 
 function verifyContact() {
     if (getContact("name") == null && getContact("color") == null) {
-        console.log("esta vazio");
         return false
     } else  {
-        console.log(getContact("name"));
-        console.log(getContact("color"));
         return true
     }
 }
@@ -124,3 +125,14 @@ function getContact (valueName) {
         return window.localStorage.getItem("name") + "#" + window.localStorage.getItem("color")
     }
 }
+
+function getDateNow() {
+    var d = new Date();
+    return d.getHours() +":"+ d.getMinutes() 
+    
+  }
+
+  function saveSettings() {
+      settings()
+      storeContact(namefield.value,colorfield.value)
+  }
