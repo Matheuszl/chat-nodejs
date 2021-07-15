@@ -1,0 +1,8 @@
+//list pm2 
+pm2 list
+//run pm2
+pm2 start server.js --name="socketapp"
+//stop pm2
+pm2 stop socketapp
+//restart
+pm2 restart socketapp

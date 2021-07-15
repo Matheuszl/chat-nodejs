@@ -33,28 +33,27 @@ socket.on('receivedMessage', function (message) {
 });
 
 
+    $('#chat').submit(function (event) {
+        event.preventDefault();
+        
+        let fullName = namefield.value + "#" + colorfield.value
+        
+        if (namefield.value.length && messagefield.value.length) {
+            
+            var messageObject = {
+                autor: fullName,
+                message: messagefield.value,
+            };
+            
+            renderMessage(messageObject);
+            socket.emit('sendMessage', messageObject);
+            storeContact(namefield.value, colorfield.value)
+            verifyClass(namefield.value);
+            messagefield.value = ""
+            scrollUp();
+        }
+    });
 
-$('#chat').submit(function (event) {
-
-
-    event.preventDefault();
-
-    let fullName = namefield.value + "#" + colorfield.value
-
-    if (namefield.value.length && messagefield.value.length) {
-
-        var messageObject = {
-            autor: fullName,
-            message: messagefield.value,
-        };
-
-        renderMessage(messageObject);
-        socket.emit('sendMessage', messageObject);
-        storeContact(namefield.value, colorfield.value)
-        verifyClass(namefield.value);
-        scrollUp();
-    }
-});
 
 function scrollUp() {
     messagesfield.scroll(0, (messages.length * 1000))
