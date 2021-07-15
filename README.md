@@ -7,8 +7,10 @@ Desenvolvimento de um chat real time usando Socket.Io e integralização com AWS
 
 ### ⚙️ Funcionalidades
 
-- [x] Envio de mensagens instantaneas 
-- [ ] Envio de imagens instantaneas 
+- [:heavy_check_mark:] Envio de mensagens instantaneas 
+- [:warning:] Envio de imagens instantaneas 
+- [:warning:] Cadastro simples de usuario
+- [:warning:] Salas particulares
 
 ---
 
@@ -53,7 +55,7 @@ Este projeto esta sobe a licença [MIT](./LICENSE).
 <table>
   <tr>
     <td align="center"><img style="border-radius: 50%;" src="https://avatars2.githubusercontent.com/u/48697859?v=4" width="100px;" alt=""/><br /><sub><b>Matheus Zalamena</b></sub></a><br /><a  href="https://github.com/Matheuszl"> 👨‍🚀 </a></td>
-    <td align="center"><img style="border-radius: 50%;" src="https://avatars2.githubusercontent.com/u/37555174?v=4" width="100px;" alt=""/><br /><sub><b>Gabriel Belagamba</b></sub></a><br /><a  href="https://github.com/151152563"> 👨‍🚀 </a></td>
+    <td align="center"><img style="border-radius: 50%;" src="https://avatars2.githubusercontent.com/u/37555174?v=4" width="100px;" alt=""/><br /><sub><b>Gabriel Bellagamba</b></sub></a><br /><a  href="https://github.com/151152563"> 👨‍🚀 </a></td>
     
   </tr>
 </table>
