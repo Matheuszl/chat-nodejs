@@ -32,7 +32,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
 -   **[NodeJS](https://nodejs.org/en/)**
 -   **[AWS](https://aws.amazon.com/pt/)**
 -   **[Socket.io](https://socket.io/#examples)**
-
+-   **[MongoDB](https://www.mongodb.com/pt-br)**
+-   **[NPM](https://www.npmjs.com)**
 
 ### 📝 Licença
 
