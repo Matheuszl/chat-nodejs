@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 //const cors = require('cors');
 const app = express();
+const User = require('../database/user');
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -30,7 +31,14 @@ io.on('connection', socket => {
 
 
   socket.on('sendMessage', data => {
+
+    //aqui ele salva no array
     messages.push(data);
+
+    //stack salvar no banco de dados
+    const user = User.create(data);
+
+
     socket.broadcast.emit('receivedMessage', data);
   });
 });

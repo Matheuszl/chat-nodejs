@@ -130,9 +130,9 @@ function getDateNow() {
     var d = new Date();
     return d.getHours() +":"+ d.getMinutes() 
     
-  }
+}
 
-  function saveSettings() {
-      settings()
-      storeContact(namefield.value,colorfield.value)
-  }
+function saveSettings() {
+    settings()
+    storeContact(namefield.value,colorfield.value)
+}
